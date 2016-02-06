@@ -12,28 +12,33 @@ import TwitterKit
 
 class ViewController: UIViewController {
 
+    override func viewDidAppear(animated: Bool) {
+        if !TwitterClient.sharedInstance.checkUserLogin() {
+//            removeLoginButton()
+//            self.performSegueWithIdentifier("showUserTimeline", sender: self)
+            self.addLoginButton()
+        } else {
+            addLoginButton()
+        }
+    }
     
-    
-    
+    var logInButton : TWTRLogInButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        addLoginButton()
-        
-        
         
         
         // Do any additional setup after loading the view, typically from a nib.
     }
+    func removeLoginButton(){
+        if self.logInButton != nil {
+            self.logInButton.removeFromSuperview()
+        }
+    }
 
     func addLoginButton(){
-                
-        let logInButton = TWTRLogInButton(logInCompletion: { session, error in
-            if (session != nil) {
-                print("signed in as \(session!.userName)");
-            } else {
-                print("error: \(error!.localizedDescription)");
-            }
-        })
+        
+        logInButton = TWTRLogInButton()
+        logInButton.addTarget(self, action: "login", forControlEvents: UIControlEvents.TouchUpInside)
         logInButton.center = self.view.center
         self.view.addSubview(logInButton)
 
@@ -46,8 +51,7 @@ class ViewController: UIViewController {
     func login(){
         TwitterClient.sharedInstance.loginWithCompletion { (user, error) -> Void in
             if user != nil {
-                print(user?.name)
-                print(user?.profile_image_url)
+               self.performSegueWithIdentifier("showUserTimeline", sender: self)
             }
             if error != nil {
                 
@@ -57,21 +61,11 @@ class ViewController: UIViewController {
             
         }
     }
-    func getUserTimeline(){
-        TwitterClient.sharedInstance.getUserTimeLine { (tweets:[Tweet]?, error) -> Void in
-            if tweets != nil {
-                for tweet in tweets! {
-                    let object = tweet as Tweet
-                    print(object.id)
-                    print(object.user?.name)
-                }
-            }
-            if error != nil {
-                print(error)
-            }
-        }
-    }
+    
 
 
 }
+
+
+
 

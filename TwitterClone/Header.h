@@ -12,4 +12,5 @@
 #import "BDBOAuth1SessionManager.h"
 #import "MJExtension.h"
 #import "MJRefresh.h"
+#import "ProgressHUD.h"
 #endif /* Header_h */

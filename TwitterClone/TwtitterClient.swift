@@ -7,21 +7,31 @@
 //
 
 import UIKit
+import TwitterKit
 
-let key = "4pPb2nGQyXXUfMRoXwr7IsDAg"
-let secret = "eMmGmMYhOMxZ0IFCCDFi4bqFfLybeQJTjLFrjgqCZX4zd8624C"
+let keyA = "4pPb2nGQyXXUfMRoXwr7IsDAg"
+let secretA = "eMmGmMYhOMxZ0IFCCDFi4bqFfLybeQJTjLFrjgqCZX4zd8624C"
+let keyB = "fdUSd7SVqX7QkOyYRtIAd6LZk"
+let secretB = "hHhS2R80nKDobRwr09RgrBkeDDWDGZ7XcuvtlhzXMB74Y48lZT"
+
 let twitterBaseURL = NSURL(string: "https://api.twitter.com")
 
 class TwitterClient: BDBOAuth1SessionManager {
-    
     var loginCompletion : ((user: User?,error: NSError?) -> ())?
     
     class var sharedInstance: TwitterClient {
         struct Static {
-            static let instance = TwitterClient(baseURL: twitterBaseURL, consumerKey: key, consumerSecret: secret)
+            
+            static let instance = TwitterClient(baseURL: twitterBaseURL, consumerKey: keyB, consumerSecret: secretB)
+            
         }
         return Static.instance
     }
+    
+    func checkUserLogin()->Bool{
+        return TwitterClient.sharedInstance.requestSerializer.accessToken == nil
+    }
+    
     
     func loginWithCompletion(completion: (user: User?,error: NSError?) -> Void ){
         loginCompletion = completion
@@ -41,36 +51,57 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     func openURL(url:NSURL){
         fetchAccessTokenWithPath("oauth/access_token", method: "POST", requestToken: BDBOAuth1Credential(queryString: url.query), success: { (credential:BDBOAuth1Credential!) -> Void in
-            print("Got access token\(credential.token)")
+            print("Got access token\(credential.userInfo)")
             TwitterClient.sharedInstance.requestSerializer.saveAccessToken(credential)
-            TwitterClient.sharedInstance.GET("1.1/account/verify_credentials.json", parameters: nil, success: { (task:NSURLSessionDataTask, response:AnyObject?) -> Void in
-                    print("successfully get the user")
-                    let user = User.mj_objectWithKeyValues(response)
-                    self.loginCompletion?(user:user, error: nil)
-                }, failure: { (task:NSURLSessionDataTask?, error:NSError) -> Void in
-                    print("failed to get current user")
-                    self.loginCompletion?(user: nil, error: error)
+            Twitter.sharedInstance().sessionStore.saveSessionWithAuthToken(credential.token, authTokenSecret: credential.secret, completion: { (session:TWTRAuthSession?, error:NSError?) -> Void in
+                print("save to session store")
+                print("error:\(error)")
+                
             })
+//            TwitterClient.sharedInstance.GET("1.1/account/verify_credentials.json", parameters: nil, success: { (task:NSURLSessionDataTask, response:AnyObject?) -> Void in
+//                    print("successfully get the user")
+//                    let user = User.mj_objectWithKeyValues(response)
+//                    self.loginCompletion?(user:user, error: nil)
+//                }, failure: { (task:NSURLSessionDataTask?, error:NSError) -> Void in
+//                    print("failed to get current user")
+//                    self.loginCompletion?(user: nil, error: error)
+//            })
+            let user = User()
+            self.loginCompletion?(user: user, error: nil)
             }) { (error:NSError!) -> Void in
-                print("failed to get access token")
+                print("failed to get access token\(error)")
                 self.loginCompletion?(user: nil, error: error)
         }
     }
     
-    func getUserTimeLine(completion: (tweets: [Tweet]?,error: NSError?) -> Void){
-//        let para = ["since_id":"694628730933739520"]
-        GET("1.1/statuses/home_timeline.json", parameters: nil, success: { (task:NSURLSessionDataTask, response:AnyObject?) -> Void in
+    func getUserTimeLine(max_id:String?,completion: (tweets: [TWTRTweet]?,error: NSError?) -> Void){
+        var para : [String:AnyObject]!
+        if max_id != nil {
+            para = ["max_id":max_id!]
+        } else {
+            para = nil
+        }
+        
+        GET("1.1/statuses/home_timeline.json", parameters: para, success: { (task:NSURLSessionDataTask, response:AnyObject?) -> Void in
                 print("successfully get user timeline")
-            var tweets : [Tweet] = []
-            let array = response as! NSArray
-            for item in array {
-                let tweet = Tweet.mj_objectWithKeyValues(item)
-                tweets.append(tweet)
-            }
+            
+            let array = response as! [AnyObject]
+            let tweets : [TWTRTweet] = TWTRTweet.tweetsWithJSONArray(array) as! [TWTRTweet]
+            
             completion(tweets: tweets, error: nil)
             }) { (task:NSURLSessionDataTask?, error:NSError) -> Void in
-                print("failed to get user timeline")
+                print("failed to get user timeline : \(error)")
                 completion(tweets: nil, error: error)
+        }
+    }
+    func favoriateATweet(id:String,completion:(success:Bool)->Void){
+        let para = ["id":id]
+        POST("1.1/favorites/create.json", parameters: para, success: { (task:NSURLSessionDataTask, response:AnyObject?) -> Void in
+            print("like succseed")
+            completion(success: true)
+            }) { (task:NSURLSessionDataTask?, error:NSError) -> Void in
+                print("like failed : \(error)")
+                completion(success: false)
         }
     }
     
