@@ -50,10 +50,31 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="CiS-9l-yme"/>
+                    <connections>
+                        <segue destination="WKW-Ng-yKB" kind="show" identifier="toDetail" id="koD-zM-gHK"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tsV-pQ-bJO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1963" y="1160"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="Y37-OH-egk">
+            <objects>
+                <viewController id="WKW-Ng-yKB" customClass="DetailViewController" customModule="TwitterClone" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZRb-Ig-oXd"/>
+                        <viewControllerLayoutGuide type="bottom" id="jbQ-kA-Tp2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HJ4-oy-yod">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j2x-WZ-45u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2649" y="1159"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="nBx-He-84l">

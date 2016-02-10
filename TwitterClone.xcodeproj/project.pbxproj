@@ -13,6 +13,7 @@
 		C02CA7C01C61637B00BB0782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C02CA7BE1C61637B00BB0782 /* Main.storyboard */; };
 		C02CA7C21C61637B00BB0782 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C02CA7C11C61637B00BB0782 /* Assets.xcassets */; };
 		C02CA7C51C61637B00BB0782 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C02CA7C31C61637B00BB0782 /* LaunchScreen.storyboard */; };
+		C08F67951C6BC9200083AD7D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08F67941C6BC9200083AD7D /* DetailViewController.swift */; };
 		C0E421331C6524030099B19A /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C0E421301C6524030099B19A /* ProgressHUD.bundle */; };
 		C0E421341C6524030099B19A /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E421321C6524030099B19A /* ProgressHUD.m */; };
 		C0E421361C6524210099B19A /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E421351C6524210099B19A /* Tool.swift */; };
@@ -37,6 +38,7 @@
 		C02CA7C11C61637B00BB0782 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C02CA7C41C61637B00BB0782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C02CA7C61C61637B00BB0782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C08F67941C6BC9200083AD7D /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		C0E421301C6524030099B19A /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
 		C0E421311C6524030099B19A /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
 		C0E421321C6524030099B19A /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				C02CA7BC1C61637B00BB0782 /* ViewController.swift */,
 				C0E421351C6524210099B19A /* Tool.swift */,
 				C02CA7BE1C61637B00BB0782 /* Main.storyboard */,
+				C08F67941C6BC9200083AD7D /* DetailViewController.swift */,
 				C0E6A95E1C619CAE002D4AA8 /* UserTimelineViewController.swift */,
 				C02CA7C11C61637B00BB0782 /* Assets.xcassets */,
 				C02CA7C31C61637B00BB0782 /* LaunchScreen.storyboard */,
@@ -282,6 +285,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C08F67951C6BC9200083AD7D /* DetailViewController.swift in Sources */,
 				C02CA7BD1C61637B00BB0782 /* ViewController.swift in Sources */,
 				C0E6A94E1C617B87002D4AA8 /* TwtitterClient.swift in Sources */,
 				C02CA7BB1C61637B00BB0782 /* AppDelegate.swift in Sources */,

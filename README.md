@@ -1,6 +1,6 @@
 # Project 4 - *TwtitterClone*
 
-**TwtitterClone** is a basic twitter app to read and compose tweets the [Twitter API](https://apps.twitter.com/).
+**TwtitterClone** is a close clone of twitter app to read and compose tweets the [Twitter API](https://apps.twitter.com/).
 
 Time spent: **20** hours spent in total
 
@@ -28,6 +28,12 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 1. To be honest, Twitter API is so hard to use.
 2. Twitter has a very bad integration experience. :(
+
+## Thoughs about Twitter Fabric Kit:
+
+
+Q: The purpose of this lab is to understand Authentication,if you use Twitter Fabric you are not understanding how OAuth works.
+A: That's partial ture.I only use TwitterKit for displaying their UI and parse Responses. I call all their API explicitly(including OAuth & get User_hometimeline).Except for the favoriateATweet method in my TwitterClient , this TwitterClient class has 100% code coverage when you run the app.Also I have to figure out how to do infinite scrolling on Twitter API directly(using their max_id parameters). TwitterKit does not provide infinite scrolling.
 
 ## Video Walkthrough 
 

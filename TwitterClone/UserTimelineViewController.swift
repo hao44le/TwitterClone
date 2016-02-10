@@ -15,6 +15,7 @@ class TweetTableViewDemoViewController: UITableViewController, TWTRTweetViewDele
     var tweets: [TWTRTweet] = []
     var isHeaderRefresh = false
     var max_id : String? = "1"
+    var selectedTweet : TWTRTweet!
     
     override func viewDidLoad() {
         // Setup the table view
@@ -160,6 +161,13 @@ class TweetTableViewDemoViewController: UITableViewController, TWTRTweetViewDele
     }
     func tweetView(tweetView: TWTRTweetView, didSelectTweet tweet: TWTRTweet) {
         print("didSelectTweet")
+        self.selectedTweet = tweet
+        self.performSegueWithIdentifier("toDetail", sender: self)
     }
-    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "toDetail" {
+            let desVC = segue.destinationViewController as! DetailViewController
+            desVC.selectedTweet = self.selectedTweet
+        }
+    }
 }
