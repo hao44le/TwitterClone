@@ -14,9 +14,9 @@ class ViewController: UIViewController {
 
     override func viewDidAppear(animated: Bool) {
         if !TwitterClient.sharedInstance.checkUserLogin() {
-//            removeLoginButton()
-//            self.performSegueWithIdentifier("showUserTimeline", sender: self)
-            self.addLoginButton()
+            removeLoginButton()
+            self.performSegueWithIdentifier("showUserTimeline", sender: self)
+//            self.addLoginButton()
         } else {
             addLoginButton()
         }

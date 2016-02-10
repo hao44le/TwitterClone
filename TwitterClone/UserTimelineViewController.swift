@@ -9,7 +9,7 @@
 // Swift
 import TwitterKit
 
-class TweetTableViewDemoViewController: UITableViewController, TWTRTweetViewDelegate {
+class TweetTableViewDemoViewController: UITableViewController, TWTRTweetViewDelegate,TWTRComposerViewControllerDelegate {
     let tweetTableReuseIdentifier = "TweetCell"
     // Hold all the loaded Tweets
     var tweets: [TWTRTweet] = []
@@ -41,16 +41,32 @@ class TweetTableViewDemoViewController: UITableViewController, TWTRTweetViewDele
         self.navigationItem.rightBarButtonItem = newButton
     }
     func newPressed(){
-        let composer = TWTRComposer()
-        // Called from a UIViewController
-        composer.showFromViewController(self) { result in
-            if (result == TWTRComposerResult.Cancelled) {
-                print("Tweet composition cancelled")
-            }
-            else {
-                self.refreshData(nil)
-            }
+//        let composer = TWTRComposer()
+//        // Called from a UIViewController
+//        composer.showFromViewController(self) { result in
+//            if (result == TWTRComposerResult.Cancelled) {
+//                print("Tweet composition cancelled")
+//            }
+//            else {
+//                self.refreshData(nil)
+//            }
+//        }
+        // Users must be logged-in to compose Tweets
+        if let session = Twitter.sharedInstance().sessionStore.session() {
+            
+            let composer = TWTRComposerViewController(userID: session.userID, cardConfiguration: nil)
+            
+            // Optionally set yourself as the delegate
+            composer.delegate = self
+            
+            // Show the view controller
+            presentViewController(composer, animated: true, completion: nil)
         }
+    }
+    
+    
+    func composerDidSucceed(controller: TWTRComposerViewController, withTweet tweet: TWTRTweet) {
+        self.refreshData(nil)
     }
     
     func logoutpressed(){
@@ -135,9 +151,15 @@ class TweetTableViewDemoViewController: UITableViewController, TWTRTweetViewDele
         let tweet = tweets[indexPath.row]
         return TWTRTweetTableViewCell.heightForTweet(tweet, width: CGRectGetWidth(self.view.bounds), showingActions: true)
     }
-    func tweetView(tweetView: TWTRTweetView, didShareTweet tweet: TWTRTweet, withType shareType: String) {
-        print("didShareTweet")
-//        refreshData(nil)
+    func tweetView(tweetView: TWTRTweetView, didTapImage image: UIImage, withURL imageURL: NSURL) {
+        print("user tap on image")
+    }
+    func tweetView(tweetView: TWTRTweetView, didTapProfileImageForUser user: TWTRUser) {
+        print("didTapProfileImageForUser")
+        
+    }
+    func tweetView(tweetView: TWTRTweetView, didSelectTweet tweet: TWTRTweet) {
+        print("didSelectTweet")
     }
     
 }
