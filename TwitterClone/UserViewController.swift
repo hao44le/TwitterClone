@@ -8,7 +8,7 @@
 
 import UIKit
 import TwitterKit
-class UserViewController: UIViewController {
+class UserViewController: UIViewController,UIScrollViewDelegate {
 
     @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -37,6 +37,7 @@ class UserViewController: UIViewController {
     }
     func configureUI(){
         
+        scrollView.delegate = self
 //            print(user)
             scrollView.contentSize = CGSize(width: scrollView.frame.width, height: infoView.frame.origin.y + infoView.frame.height)
             scrollView.setContentOffset(CGPoint(x: 0, y: -200), animated: true)
@@ -102,6 +103,7 @@ class UserViewController: UIViewController {
         
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

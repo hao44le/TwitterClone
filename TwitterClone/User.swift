@@ -8,7 +8,7 @@
 
 import UIKit
 
-class User: NSObject,NSCoding {
+public class User: NSObject,NSCoding {
     var name: String?
     var screen_name : String?
     var profile_image_url_https : String?
@@ -24,7 +24,7 @@ class User: NSObject,NSCoding {
     override init() {
         
     }
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         self.name = aDecoder.decodeObjectForKey("name") as? String
         self.screen_name = aDecoder.decodeObjectForKey("screen_name") as? String
         self.profile_image_url_https = aDecoder.decodeObjectForKey("profile_image_url_https") as? String
@@ -38,7 +38,7 @@ class User: NSObject,NSCoding {
         self.descriptionOfSelf = aDecoder.decodeObjectForKey("descriptionOfSelf") as? String
 //        super.init()
     }
-    func encodeWithCoder(aCoder: NSCoder) {
+    public func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(self.name, forKey: "name")
         aCoder.encodeObject(self.screen_name, forKey: "screen_name")
         aCoder.encodeObject(self.profile_image_url_https, forKey: "profile_image_url_https")
