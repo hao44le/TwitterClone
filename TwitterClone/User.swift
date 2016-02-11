@@ -8,7 +8,7 @@
 
 import UIKit
 
-class User: NSObject {
+class User: NSObject,NSCoding {
     var name: String?
     var screen_name : String?
     var profile_image_url_https : String?
@@ -21,4 +21,34 @@ class User: NSObject {
     var listed_count:String?
     var descriptionOfSelf: String?
     
+    override init() {
+        
+    }
+    required init?(coder aDecoder: NSCoder) {
+        self.name = aDecoder.decodeObjectForKey("name") as? String
+        self.screen_name = aDecoder.decodeObjectForKey("screen_name") as? String
+        self.profile_image_url_https = aDecoder.decodeObjectForKey("profile_image_url_https") as? String
+        self.id_str = aDecoder.decodeObjectForKey("id_str") as? String
+        self.followers_count = aDecoder.decodeObjectForKey("followers_count") as? NSNumber
+        self.favourites_count = aDecoder.decodeObjectForKey("favourites_count") as? NSNumber
+        self.profile_background_image_url = aDecoder.decodeObjectForKey("profile_background_image_url") as? String
+        self.location = aDecoder.decodeObjectForKey("location") as? String
+        self.friends_count = aDecoder.decodeObjectForKey("friends_count") as? String
+        self.listed_count = aDecoder.decodeObjectForKey("listed_count") as? String
+        self.descriptionOfSelf = aDecoder.decodeObjectForKey("descriptionOfSelf") as? String
+//        super.init()
+    }
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(self.name, forKey: "name")
+        aCoder.encodeObject(self.screen_name, forKey: "screen_name")
+        aCoder.encodeObject(self.profile_image_url_https, forKey: "profile_image_url_https")
+        aCoder.encodeObject(self.id_str, forKey: "id_str")
+        aCoder.encodeObject(self.followers_count, forKey: "followers_count")
+        aCoder.encodeObject(self.favourites_count, forKey: "favourites_count")
+        aCoder.encodeObject(self.profile_background_image_url, forKey: "profile_background_image_url")
+        aCoder.encodeObject(self.location, forKey: "location")
+        aCoder.encodeObject(self.friends_count, forKey: "friends_count")
+        aCoder.encodeObject(self.listed_count, forKey: "listed_count")
+        aCoder.encodeObject(self.descriptionOfSelf, forKey: "descriptionOfSelf")
+    }
 }

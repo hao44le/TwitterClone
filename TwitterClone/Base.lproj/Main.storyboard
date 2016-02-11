@@ -52,6 +52,7 @@
                     <navigationItem key="navigationItem" id="CiS-9l-yme"/>
                     <connections>
                         <segue destination="WKW-Ng-yKB" kind="show" identifier="toDetail" id="koD-zM-gHK"/>
+                        <segue destination="mID-9e-1mc" kind="show" identifier="toUser" id="duv-Io-Nb1"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tsV-pQ-bJO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -87,7 +88,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="CPs-b8-L0b" kind="relationship" relationship="viewControllers" id="xaS-fb-Fbo"/>
-                        <segue destination="WEo-S8-M7k" kind="relationship" relationship="viewControllers" id="Hjt-GT-mX1"/>
+                        <segue destination="mID-9e-1mc" kind="relationship" relationship="viewControllers" id="STs-OE-FDe"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vJf-y8-2hG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -113,7 +114,7 @@
             </objects>
             <point key="canvasLocation" x="1151" y="1160"/>
         </scene>
-        <!--User View Controller-->
+        <!--User-->
         <scene sceneID="KUX-so-S3o">
             <objects>
                 <viewController id="mID-9e-1mc" customClass="UserViewController" customModule="TwitterClone" customModuleProvider="target" sceneMemberID="viewController">
@@ -124,32 +125,51 @@
                     <view key="view" contentMode="scaleToFill" id="ZVc-8y-mqL">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PIt-73-675">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gSd-iO-wL5">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="90" id="HN0-n6-pzu"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="gSd-iO-wL5" firstAttribute="leading" secondItem="PIt-73-675" secondAttribute="leading" id="Fyf-mX-Ecn"/>
+                                    <constraint firstItem="gSd-iO-wL5" firstAttribute="top" secondItem="PIt-73-675" secondAttribute="top" id="R61-1t-Qty"/>
+                                    <constraint firstAttribute="trailing" secondItem="gSd-iO-wL5" secondAttribute="trailing" id="ZbB-oV-lOV"/>
+                                    <constraint firstAttribute="bottom" secondItem="gSd-iO-wL5" secondAttribute="bottom" constant="224" id="fyW-JV-ggY"/>
+                                    <constraint firstItem="gSd-iO-wL5" firstAttribute="centerX" secondItem="PIt-73-675" secondAttribute="centerX" id="gw9-P7-BtT"/>
+                                    <constraint firstAttribute="bottom" secondItem="gSd-iO-wL5" secondAttribute="bottom" constant="461" id="zUD-TF-AMy"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="fyW-JV-ggY"/>
+                                    </mask>
+                                </variation>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PIt-73-675" firstAttribute="leading" secondItem="ZVc-8y-mqL" secondAttribute="leading" id="D7R-bK-fvN"/>
+                            <constraint firstItem="PIt-73-675" firstAttribute="bottom" secondItem="GRX-aL-uUC" secondAttribute="top" id="GCx-I0-eYb"/>
+                            <constraint firstAttribute="trailing" secondItem="PIt-73-675" secondAttribute="trailing" id="RJA-I3-lRm"/>
+                            <constraint firstItem="PIt-73-675" firstAttribute="top" secondItem="zRc-MA-smW" secondAttribute="bottom" constant="-20" id="XCg-g6-7sb"/>
+                        </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="User" image="user" selectedImage="userSelected" id="wld-VM-dpz"/>
                     <navigationItem key="navigationItem" id="d8O-D3-ttT"/>
+                    <connections>
+                        <outlet property="infoView" destination="gSd-iO-wL5" id="GCe-bR-zu5"/>
+                        <outlet property="scrollView" destination="PIt-73-675" id="gS0-dG-M2N"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oWm-xH-zXi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1963" y="1903"/>
-        </scene>
-        <!--Me-->
-        <scene sceneID="5bm-fb-UbI">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WEo-S8-M7k" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Me" image="user" selectedImage="userSelected" id="Bwc-nm-ld5"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2cA-ze-Rqd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="mID-9e-1mc" kind="relationship" relationship="rootViewController" id="CJY-Uv-et2"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6JU-dd-lHC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1151" y="1903"/>
+            <point key="canvasLocation" x="1525" y="1903"/>
         </scene>
     </scenes>
     <resources>
@@ -158,4 +178,7 @@
         <image name="user" width="15" height="15"/>
         <image name="userSelected" width="15" height="15"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="duv-Io-Nb1"/>
+    </inferredMetricsTieBreakers>
 </document>

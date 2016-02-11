@@ -65,7 +65,8 @@ class TwitterClient: BDBOAuth1SessionManager {
                     let description = response!["description"] as! String
                     let user = User.mj_objectWithKeyValues(response)
                     user.descriptionOfSelf = description
-                    print(user)
+//                    print(user)
+                    NSUserDefaults.standardUserDefaults().setValue(NSKeyedArchiver.archivedDataWithRootObject(user), forKey: "userObject")
                     self.loginCompletion?(user: user, error: nil)
                 }, failure: { (task:NSURLSessionDataTask?, error:NSError) -> Void in
                     print("failed to get current user")
@@ -112,13 +113,19 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
-    func getUserDetail(userID:String,screen_name:String,completion:(success:Bool)->Void){
-        let para = ["userID":userID,"screen_name":screen_name]
+    func getUserDetail(userID:String,completion:(user:User?,error:NSError?)->Void){
+        let para = ["screen_name":userID]
         GET("1.1/users/show.json", parameters: para, success: { (task:NSURLSessionDataTask, response:AnyObject?) -> Void in
+            
             print("succeed:\(response)")
-            completion(success: true)
+            let description = response!["description"] as! String
+            let user = User.mj_objectWithKeyValues(response)
+            user.descriptionOfSelf = description
+            //                    print(user)
+            completion(user: user, error: nil)
             }) { (task:NSURLSessionDataTask?, error:NSError) -> Void in
-            completion(success: false)
+                print("failed to get user detail:\(error)")
+            completion(user: nil, error: error)
         }
     }
     

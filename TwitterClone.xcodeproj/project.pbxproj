@@ -18,6 +18,8 @@
 		C0E421341C6524030099B19A /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E421321C6524030099B19A /* ProgressHUD.m */; };
 		C0E421361C6524210099B19A /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E421351C6524210099B19A /* Tool.swift */; };
 		C0E662D31C6C414100B03D2C /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E662D21C6C414100B03D2C /* UserViewController.swift */; };
+		C0E662D71C6CCDCA00B03D2C /* UIScrollView+APParallaxHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E662D61C6CCDCA00B03D2C /* UIScrollView+APParallaxHeader.m */; };
+		C0E662DC1C6CD33700B03D2C /* placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C0E662DB1C6CD33700B03D2C /* placeholder.jpg */; };
 		C0E6A94E1C617B87002D4AA8 /* TwtitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E6A94D1C617B87002D4AA8 /* TwtitterClient.swift */; };
 		C0E6A9511C617FFE002D4AA8 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E6A9501C617FFD002D4AA8 /* Tweet.swift */; };
 		C0E6A9531C618004002D4AA8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E6A9521C618004002D4AA8 /* User.swift */; };
@@ -45,6 +47,9 @@
 		C0E421321C6524030099B19A /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
 		C0E421351C6524210099B19A /* Tool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		C0E662D21C6C414100B03D2C /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		C0E662D51C6CCDCA00B03D2C /* UIScrollView+APParallaxHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+APParallaxHeader.h"; sourceTree = "<group>"; };
+		C0E662D61C6CCDCA00B03D2C /* UIScrollView+APParallaxHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+APParallaxHeader.m"; sourceTree = "<group>"; };
+		C0E662DB1C6CD33700B03D2C /* placeholder.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = placeholder.jpg; sourceTree = "<group>"; };
 		C0E6A94B1C617AA2002D4AA8 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		C0E6A94D1C617B87002D4AA8 /* TwtitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwtitterClient.swift; sourceTree = "<group>"; };
 		C0E6A9501C617FFD002D4AA8 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
@@ -109,6 +114,20 @@
 		C02CA7B91C61637B00BB0782 /* TwitterClone */ = {
 			isa = PBXGroup;
 			children = (
+				C0E662D81C6CCDCE00B03D2C /* Library */,
+				C0E6A94F1C617FE7002D4AA8 /* Models */,
+				C0E6A94C1C617B02002D4AA8 /* API */,
+				C0E662D91C6CCDDF00B03D2C /* Other */,
+				C0E662DA1C6CCDE800B03D2C /* Controller */,
+			);
+			path = TwitterClone;
+			sourceTree = "<group>";
+		};
+		C0E662D81C6CCDCE00B03D2C /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				C0E662D51C6CCDCA00B03D2C /* UIScrollView+APParallaxHeader.h */,
+				C0E662D61C6CCDCA00B03D2C /* UIScrollView+APParallaxHeader.m */,
 				C0E421301C6524030099B19A /* ProgressHUD.bundle */,
 				C0E421311C6524030099B19A /* ProgressHUD.h */,
 				C0E421321C6524030099B19A /* ProgressHUD.m */,
@@ -116,21 +135,34 @@
 				C0E6A9571C619A05002D4AA8 /* TwitterKit.framework */,
 				C0E6A9581C619A05002D4AA8 /* TwitterKitResources.bundle */,
 				C0E6A9591C619A05002D4AA8 /* TwitterCore.framework */,
-				C0E6A94F1C617FE7002D4AA8 /* Models */,
-				C0E6A94C1C617B02002D4AA8 /* API */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
+		C0E662D91C6CCDDF00B03D2C /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				C0E421351C6524210099B19A /* Tool.swift */,
 				C0E6A94B1C617AA2002D4AA8 /* Header.h */,
 				C02CA7BA1C61637B00BB0782 /* AppDelegate.swift */,
-				C02CA7BC1C61637B00BB0782 /* ViewController.swift */,
-				C0E421351C6524210099B19A /* Tool.swift */,
 				C02CA7BE1C61637B00BB0782 /* Main.storyboard */,
-				C0E662D21C6C414100B03D2C /* UserViewController.swift */,
-				C08F67941C6BC9200083AD7D /* DetailViewController.swift */,
-				C0E6A95E1C619CAE002D4AA8 /* UserTimelineViewController.swift */,
+				C0E662DB1C6CD33700B03D2C /* placeholder.jpg */,
 				C02CA7C11C61637B00BB0782 /* Assets.xcassets */,
 				C02CA7C31C61637B00BB0782 /* LaunchScreen.storyboard */,
 				C02CA7C61C61637B00BB0782 /* Info.plist */,
 			);
-			path = TwitterClone;
+			name = Other;
+			sourceTree = "<group>";
+		};
+		C0E662DA1C6CCDE800B03D2C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C02CA7BC1C61637B00BB0782 /* ViewController.swift */,
+				C0E662D21C6C414100B03D2C /* UserViewController.swift */,
+				C08F67941C6BC9200083AD7D /* DetailViewController.swift */,
+				C0E6A95E1C619CAE002D4AA8 /* UserTimelineViewController.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		C0E6A94C1C617B02002D4AA8 /* API */ = {
@@ -213,6 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0E6A95C1C619A05002D4AA8 /* TwitterKitResources.bundle in Resources */,
+				C0E662DC1C6CD33700B03D2C /* placeholder.jpg in Resources */,
 				C02CA7C51C61637B00BB0782 /* LaunchScreen.storyboard in Resources */,
 				C02CA7C21C61637B00BB0782 /* Assets.xcassets in Resources */,
 				C0E421331C6524030099B19A /* ProgressHUD.bundle in Resources */,
@@ -291,6 +324,7 @@
 				C08F67951C6BC9200083AD7D /* DetailViewController.swift in Sources */,
 				C0E662D31C6C414100B03D2C /* UserViewController.swift in Sources */,
 				C02CA7BD1C61637B00BB0782 /* ViewController.swift in Sources */,
+				C0E662D71C6CCDCA00B03D2C /* UIScrollView+APParallaxHeader.m in Sources */,
 				C0E6A94E1C617B87002D4AA8 /* TwtitterClient.swift in Sources */,
 				C02CA7BB1C61637B00BB0782 /* AppDelegate.swift in Sources */,
 				C0E421361C6524210099B19A /* Tool.swift in Sources */,

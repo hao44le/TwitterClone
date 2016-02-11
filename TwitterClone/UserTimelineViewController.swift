@@ -16,6 +16,7 @@ class TweetTableViewDemoViewController: UITableViewController, TWTRTweetViewDele
     var isHeaderRefresh = false
     var max_id : String? = "1"
     var selectedTweet : TWTRTweet!
+    var selectedUser: User!
     
     override func viewDidLoad() {
         // Setup the table view
@@ -154,9 +155,22 @@ class TweetTableViewDemoViewController: UITableViewController, TWTRTweetViewDele
     }
     func tweetView(tweetView: TWTRTweetView, didTapImage image: UIImage, withURL imageURL: NSURL) {
         print("user tap on image")
+        
     }
     func tweetView(tweetView: TWTRTweetView, didTapProfileImageForUser user: TWTRUser) {
         print("didTapProfileImageForUser")
+        Tool.showProgressHUD("Loading user profile")
+        TwitterClient.sharedInstance.getUserDetail(user.screenName) { (user, error) -> Void in
+            if user != nil {
+                self.selectedUser = user
+                Tool.dismissHUD()
+                self.performSegueWithIdentifier("toUser", sender: self)
+            }
+            if error != nil {
+                Tool.dismissHUD()
+                Tool.showErrorHUD("An Error Occuered")
+            }
+        }
         
     }
     func tweetView(tweetView: TWTRTweetView, didSelectTweet tweet: TWTRTweet) {
@@ -168,6 +182,10 @@ class TweetTableViewDemoViewController: UITableViewController, TWTRTweetViewDele
         if segue.identifier == "toDetail" {
             let desVC = segue.destinationViewController as! DetailViewController
             desVC.selectedTweet = self.selectedTweet
+        } else if segue.identifier == "toUser" {
+            let desVC = segue.destinationViewController as! UserViewController
+            desVC.source = "UserTimelineViewController"
+            desVC.user = self.selectedUser
         }
     }
 }
