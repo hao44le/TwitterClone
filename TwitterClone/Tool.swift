@@ -12,7 +12,7 @@ class Tool:NSObject
 {
     
     
-    
+    static var twitterColor = UIColor(red: 85/255, green: 172/255, blue: 238/255, alpha: 1)
     
     class func dismissHUD()
     {

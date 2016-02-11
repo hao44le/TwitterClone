@@ -21,7 +21,7 @@ class TweetTableViewDemoViewController: UITableViewController, TWTRTweetViewDele
     override func viewDidLoad() {
         // Setup the table view
         TWTRTweetView.appearance().theme = TWTRTweetViewTheme.Light
-        self.navigationItem.title = "Home"
+//        self.navigationItem.title = "Home"
         tableView.estimatedRowHeight = 200
         tableView.rowHeight = UITableViewAutomaticDimension // Explicitly set on iOS 8 if using automatic row height calculation
         tableView.allowsSelection = false

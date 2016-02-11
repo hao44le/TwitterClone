@@ -8,10 +8,16 @@
 
 import UIKit
 import TwitterKit
-class UserViewController: UIViewController,UIScrollViewDelegate {
+class UserViewController: UIViewController,UIScrollViewDelegate,TWTRTweetViewDelegate,UITableViewDataSource {
 
     @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
+    
+    var tableView:UITableView!
+    let tweetTableReuseIdentifier = "TweetCell"
+    // Hold all the loaded Tweets
+    var tweets: [TWTRTweet] = []
+    var isHeaderRefresh = false
     
     
     var source = ""
@@ -32,7 +38,7 @@ class UserViewController: UIViewController,UIScrollViewDelegate {
             }
             
         }
-        
+        addLongPress()
         // Do any additional setup after loading the view.
     }
     func configureUI(){
@@ -40,7 +46,7 @@ class UserViewController: UIViewController,UIScrollViewDelegate {
         scrollView.delegate = self
 //            print(user)
             scrollView.contentSize = CGSize(width: scrollView.frame.width, height: infoView.frame.origin.y + infoView.frame.height)
-            scrollView.setContentOffset(CGPoint(x: 0, y: -200), animated: true)
+//            scrollView.setContentOffset(CGPoint(x: 0, y: -200), animated: true)
             let customView = UIImageView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 200))
             customView.contentMode = UIViewContentMode.ScaleAspectFill
             customView.sd_setImageWithURL(NSURL(string: user.profile_background_image_url!) , placeholderImage: UIImage(named: "placeholder.jpg"))
@@ -94,16 +100,72 @@ class UserViewController: UIViewController,UIScrollViewDelegate {
             scrollView.addSubview(followingLabel)
             
         let tweetsLabel = UILabel(frame: CGRectMake(15,225,UIScreen.mainScreen().bounds.width - 30,30))
-        tweetsLabel.text = "#tweets: \(user.listed_count!)"
+        tweetsLabel.text = "#tweets: \(user.statuses_count!)"
         tweetsLabel.textAlignment = NSTextAlignment.Center
         tweetsLabel.textColor = UIColor.grayColor()
         scrollView.addSubview(tweetsLabel)
         
         
+        self.tableView = UITableView(frame: CGRectMake(0,265,UIScreen.mainScreen().bounds.width,UIScreen.mainScreen().bounds.height))
+        tableView.estimatedRowHeight = 200
+        tableView.rowHeight = UITableViewAutomaticDimension // Explicitly set on iOS 8 if using automatic row height calculation
+        tableView.allowsSelection = false
+        tableView.registerClass(TWTRTweetTableViewCell.self, forCellReuseIdentifier: tweetTableReuseIdentifier)
+//        tableView.delegate = self
+        tableView.dataSource = self
+        // Load Tweets
+        refreshData(nil)
+        scrollView.addSubview(tableView)
         
     }
 
+    func addLongPress(){
+        let press = UILongPressGestureRecognizer(target: self, action: "longpressed")
+        self.tabBarController?.tabBar.addGestureRecognizer(press)
+    }
+    func longpressed(){
+        self.performSegueWithIdentifier("toSetting", sender: self)
+    }
     
+    func refreshData(max_id:String?){
+        Tool.showProgressHUD("Loading Tweets")
+        TwitterClient.sharedInstance.userTimelineWithParams(max_id,userID:self.user.screen_name!) { (tweets_array:[TWTRTweet]?, error) -> Void in
+            Tool.dismissHUD()
+            
+            if tweets_array != nil{
+                self.tweets = tweets_array!
+                
+            } else {
+                
+                for item in tweets_array! {
+                    self.tweets.append(item)
+                }
+                
+                
+            }
+            self.tableView.reloadData()
+        }
+        
+    }
+    
+    // MARK: UITableViewDelegate Methods
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.tweets.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let tweet = tweets[indexPath.row]
+        let cell = tableView.dequeueReusableCellWithIdentifier(tweetTableReuseIdentifier, forIndexPath: indexPath) as! TWTRTweetTableViewCell
+        cell.configureWithTweet(tweet)
+        cell.tweetView.showActionButtons = true
+        cell.tweetView.delegate = self
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        let tweet = tweets[indexPath.row]
+        return TWTRTweetTableViewCell.heightForTweet(tweet, width: CGRectGetWidth(self.view.bounds), showingActions: true)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

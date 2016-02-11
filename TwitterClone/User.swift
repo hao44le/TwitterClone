@@ -18,7 +18,7 @@ public class User: NSObject,NSCoding {
     var profile_background_image_url: String?
     var location : String?
     var friends_count:String?
-    var listed_count:String?
+    var statuses_count:NSNumber?
     var descriptionOfSelf: String?
     
     override init() {
@@ -34,7 +34,7 @@ public class User: NSObject,NSCoding {
         self.profile_background_image_url = aDecoder.decodeObjectForKey("profile_background_image_url") as? String
         self.location = aDecoder.decodeObjectForKey("location") as? String
         self.friends_count = aDecoder.decodeObjectForKey("friends_count") as? String
-        self.listed_count = aDecoder.decodeObjectForKey("listed_count") as? String
+        self.statuses_count = aDecoder.decodeObjectForKey("statuses_count") as? NSNumber
         self.descriptionOfSelf = aDecoder.decodeObjectForKey("descriptionOfSelf") as? String
 //        super.init()
     }
@@ -48,7 +48,7 @@ public class User: NSObject,NSCoding {
         aCoder.encodeObject(self.profile_background_image_url, forKey: "profile_background_image_url")
         aCoder.encodeObject(self.location, forKey: "location")
         aCoder.encodeObject(self.friends_count, forKey: "friends_count")
-        aCoder.encodeObject(self.listed_count, forKey: "listed_count")
+        aCoder.encodeObject(self.statuses_count, forKey: "statuses_count")
         aCoder.encodeObject(self.descriptionOfSelf, forKey: "descriptionOfSelf")
     }
 }

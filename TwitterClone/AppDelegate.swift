@@ -21,10 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.sharedManager().enable = true
         IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
         Twitter.sharedInstance().startWithConsumerKey(keyA, consumerSecret: secretA)
-        UITabBar.appearance().tintColor = UIColor.blueColor()
-        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
-        UINavigationBar.appearance().tintColor = UIColor.blueColor()
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.blueColor()]
+        UITabBar.appearance().barTintColor = Tool.twitterColor
+        UITabBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().barTintColor = Tool.twitterColor
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         Fabric.with([Twitter.sharedInstance()])
         return true
     }

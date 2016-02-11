@@ -129,5 +129,22 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
+    func userTimelineWithParams(max_id:String?,userID:String,completion: (tweets: [TWTRTweet]?,error: NSError?) -> Void){
+        var para : [String:AnyObject]!
+        if max_id != nil {
+            para = ["max_id":max_id!,"screen_name":userID]
+        } else {
+            para = ["screen_name":userID]
+        }
+        GET("1.1/statuses/user_timeline.json", parameters: para, success: { (task:NSURLSessionDataTask, response:AnyObject?) -> Void in
+            print("Get userTimelineWithParams Succeed")
+            let array = response as! [AnyObject]
+            let tweets : [TWTRTweet] = TWTRTweet.tweetsWithJSONArray(array) as! [TWTRTweet]
+            completion(tweets: tweets, error: nil)
+            }) { (task:NSURLSessionDataTask?, error:NSError) -> Void in
+                print("Failed to userTimelineWithParams Succeed:\(error)")
+                completion(tweets: nil , error: error)
+        }
+    }
     
 }

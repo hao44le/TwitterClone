@@ -20,6 +20,7 @@
 		C0E662D31C6C414100B03D2C /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E662D21C6C414100B03D2C /* UserViewController.swift */; };
 		C0E662D71C6CCDCA00B03D2C /* UIScrollView+APParallaxHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E662D61C6CCDCA00B03D2C /* UIScrollView+APParallaxHeader.m */; };
 		C0E662DC1C6CD33700B03D2C /* placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C0E662DB1C6CD33700B03D2C /* placeholder.jpg */; };
+		C0E662ED1C6D027A00B03D2C /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E662EC1C6D027A00B03D2C /* SettingTableViewController.swift */; };
 		C0E6A94E1C617B87002D4AA8 /* TwtitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E6A94D1C617B87002D4AA8 /* TwtitterClient.swift */; };
 		C0E6A9511C617FFE002D4AA8 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E6A9501C617FFD002D4AA8 /* Tweet.swift */; };
 		C0E6A9531C618004002D4AA8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E6A9521C618004002D4AA8 /* User.swift */; };
@@ -50,6 +51,7 @@
 		C0E662D51C6CCDCA00B03D2C /* UIScrollView+APParallaxHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+APParallaxHeader.h"; sourceTree = "<group>"; };
 		C0E662D61C6CCDCA00B03D2C /* UIScrollView+APParallaxHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+APParallaxHeader.m"; sourceTree = "<group>"; };
 		C0E662DB1C6CD33700B03D2C /* placeholder.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = placeholder.jpg; sourceTree = "<group>"; };
+		C0E662EC1C6D027A00B03D2C /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
 		C0E6A94B1C617AA2002D4AA8 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		C0E6A94D1C617B87002D4AA8 /* TwtitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwtitterClient.swift; sourceTree = "<group>"; };
 		C0E6A9501C617FFD002D4AA8 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 		C0E662DA1C6CCDE800B03D2C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C0E662EC1C6D027A00B03D2C /* SettingTableViewController.swift */,
 				C02CA7BC1C61637B00BB0782 /* ViewController.swift */,
 				C0E662D21C6C414100B03D2C /* UserViewController.swift */,
 				C08F67941C6BC9200083AD7D /* DetailViewController.swift */,
@@ -321,6 +324,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0E662ED1C6D027A00B03D2C /* SettingTableViewController.swift in Sources */,
 				C08F67951C6BC9200083AD7D /* DetailViewController.swift in Sources */,
 				C0E662D31C6C414100B03D2C /* UserViewController.swift in Sources */,
 				C02CA7BD1C61637B00BB0782 /* ViewController.swift in Sources */,
