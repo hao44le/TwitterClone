@@ -13,4 +13,5 @@
 #import "MJExtension.h"
 #import "MJRefresh.h"
 #import "ProgressHUD.h"
+#import "IQKeyboardManager.h"
 #endif /* Header_h */

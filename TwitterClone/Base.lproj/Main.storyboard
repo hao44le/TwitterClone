@@ -113,10 +113,10 @@
             </objects>
             <point key="canvasLocation" x="1151" y="1160"/>
         </scene>
-        <!--View Controller-->
+        <!--User View Controller-->
         <scene sceneID="KUX-so-S3o">
             <objects>
-                <viewController id="mID-9e-1mc" sceneMemberID="viewController">
+                <viewController id="mID-9e-1mc" customClass="UserViewController" customModule="TwitterClone" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zRc-MA-smW"/>
                         <viewControllerLayoutGuide type="bottom" id="GRX-aL-uUC"/>

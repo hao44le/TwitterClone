@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>IQKeyboardManager.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MJExtension.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,7 +37,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>28851637000060C90EE3D50059A31948</key>
+		<key>48E7BB09A2C5BCB4C3701A17B58468EF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>55DBDD8B7D446F1D618F303A9FB53209</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -53,11 +63,6 @@
 			<true/>
 		</dict>
 		<key>D57E04CFEF9A9D67A96B7F1776713700</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DE89DAE1527BA30FB4D29E57E2844240</key>
 		<dict>
 			<key>primary</key>
 			<true/>

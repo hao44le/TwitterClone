@@ -9,9 +9,11 @@
 import UIKit
 import TwitterKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController,UITextFieldDelegate {
 
     var selectedTweet : TWTRTweet!
+    var textFiled: UITextField!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,9 +24,45 @@ class DetailViewController: UIViewController {
     func congifureUI(){
         let tweetView = TWTRTweetView(tweet: self.selectedTweet)
         tweetView.showActionButtons = true
-        tweetView.frame = CGRectMake(0, 64, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height)
+        tweetView.frame = CGRectMake(0, 64, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height / 2)
         self.view.addSubview(tweetView)
+        
+        textFiled = UITextField(frame: CGRectMake(0,UIScreen.mainScreen().bounds.height - 100,UIScreen.mainScreen().bounds.width - 50 ,50))
+        textFiled.borderStyle = UITextBorderStyle.RoundedRect
+        textFiled.delegate = self
+        textFiled.placeholder = "Reply to \(self.selectedTweet.author.screenName)"
+        self.view.addSubview(textFiled)
+        
+        let replyButton = UIButton(frame: CGRectMake(UIScreen.mainScreen().bounds.width - 50,UIScreen.mainScreen().bounds.height - 100,50,50))
+        replyButton.setTitle("Reply", forState: UIControlState.Normal)
+        replyButton.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
+        replyButton.addTarget(self, action: "replyButtonClicked", forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(replyButton)
+        
+        
+        
+        
     }
+    
+    func replyButtonClicked(){
+        //print(self.textFiled.text)
+        if self.textFiled.text == nil || self.textFiled.text == "" {
+            Tool.showErrorHUD("Please type your text")
+        } else {
+            let text = "@\(self.selectedTweet.author.screenName) \(self.textFiled.text!)"
+            TwitterClient.sharedInstance.repliesToATweet(text, id: self.selectedTweet.tweetID, completion: { (success) -> Void in
+                if success {
+                    Tool.showSuccessHUD("Replies succeed!")
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                } else {
+                    Tool.showErrorHUD("Replies failed.Please try again.")
+                }
+            })
+
+        }
+        
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

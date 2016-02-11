@@ -52,22 +52,27 @@ class TwitterClient: BDBOAuth1SessionManager {
     func openURL(url:NSURL){
         fetchAccessTokenWithPath("oauth/access_token", method: "POST", requestToken: BDBOAuth1Credential(queryString: url.query), success: { (credential:BDBOAuth1Credential!) -> Void in
             print("Got access token\(credential.userInfo)")
+            let id = credential.userInfo["user_id"] as! String
+            NSUserDefaults.standardUserDefaults().setValue(id, forKey: "userID")
             TwitterClient.sharedInstance.requestSerializer.saveAccessToken(credential)
             Twitter.sharedInstance().sessionStore.saveSessionWithAuthToken(credential.token, authTokenSecret: credential.secret, completion: { (session:TWTRAuthSession?, error:NSError?) -> Void in
                 print("save to session store")
                 print("error:\(error)")
                 
             })
-//            TwitterClient.sharedInstance.GET("1.1/account/verify_credentials.json", parameters: nil, success: { (task:NSURLSessionDataTask, response:AnyObject?) -> Void in
-//                    print("successfully get the user")
-//                    let user = User.mj_objectWithKeyValues(response)
-//                    self.loginCompletion?(user:user, error: nil)
-//                }, failure: { (task:NSURLSessionDataTask?, error:NSError) -> Void in
-//                    print("failed to get current user")
-//                    self.loginCompletion?(user: nil, error: error)
-//            })
-            let user = User()
-            self.loginCompletion?(user: user, error: nil)
+            TwitterClient.sharedInstance.GET("1.1/account/verify_credentials.json", parameters: nil, success: { (task:NSURLSessionDataTask, response:AnyObject?) -> Void in
+                    print("successfully get the user")
+                    let description = response!["description"] as! String
+                    let user = User.mj_objectWithKeyValues(response)
+                    user.descriptionOfSelf = description
+                    print(user)
+                    self.loginCompletion?(user: user, error: nil)
+                }, failure: { (task:NSURLSessionDataTask?, error:NSError) -> Void in
+                    print("failed to get current user")
+                    self.loginCompletion?(user: nil, error: error)
+            })
+//            let user = User()
+//            self.loginCompletion?(user: user, error: nil)
             }) { (error:NSError!) -> Void in
                 print("failed to get access token\(error)")
                 self.loginCompletion?(user: nil, error: error)
@@ -94,15 +99,28 @@ class TwitterClient: BDBOAuth1SessionManager {
                 completion(tweets: nil, error: error)
         }
     }
-    func favoriateATweet(id:String,completion:(success:Bool)->Void){
-        let para = ["id":id]
-        POST("1.1/favorites/create.json", parameters: para, success: { (task:NSURLSessionDataTask, response:AnyObject?) -> Void in
-            print("like succseed")
+    
+    func repliesToATweet(content:String,id:String,completion:(success:Bool)->Void){
+        let para = ["status":content,"in_reply_to_status_id":id]
+        print(id)
+        POST("1.1/statuses/update.json", parameters: para, success: { (task:NSURLSessionDataTask, response:AnyObject?) -> Void in
+            print("replies succeed")
             completion(success: true)
             }) { (task:NSURLSessionDataTask?, error:NSError) -> Void in
-                print("like failed : \(error)")
-                completion(success: false)
+                print("replies failed\(error)")
+            completion(success: false)
         }
     }
+    
+    func getUserDetail(userID:String,screen_name:String,completion:(success:Bool)->Void){
+        let para = ["userID":userID,"screen_name":screen_name]
+        GET("1.1/users/show.json", parameters: para, success: { (task:NSURLSessionDataTask, response:AnyObject?) -> Void in
+            print("succeed:\(response)")
+            completion(success: true)
+            }) { (task:NSURLSessionDataTask?, error:NSError) -> Void in
+            completion(success: false)
+        }
+    }
+    
     
 }

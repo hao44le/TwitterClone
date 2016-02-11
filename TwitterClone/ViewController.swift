@@ -52,6 +52,7 @@ class ViewController: UIViewController {
         TwitterClient.sharedInstance.loginWithCompletion { (user, error) -> Void in
             if user != nil {
                self.performSegueWithIdentifier("showUserTimeline", sender: self)
+                
             }
             if error != nil {
                 

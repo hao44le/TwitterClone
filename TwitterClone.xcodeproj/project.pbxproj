@@ -17,6 +17,7 @@
 		C0E421331C6524030099B19A /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C0E421301C6524030099B19A /* ProgressHUD.bundle */; };
 		C0E421341C6524030099B19A /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E421321C6524030099B19A /* ProgressHUD.m */; };
 		C0E421361C6524210099B19A /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E421351C6524210099B19A /* Tool.swift */; };
+		C0E662D31C6C414100B03D2C /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E662D21C6C414100B03D2C /* UserViewController.swift */; };
 		C0E6A94E1C617B87002D4AA8 /* TwtitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E6A94D1C617B87002D4AA8 /* TwtitterClient.swift */; };
 		C0E6A9511C617FFE002D4AA8 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E6A9501C617FFD002D4AA8 /* Tweet.swift */; };
 		C0E6A9531C618004002D4AA8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E6A9521C618004002D4AA8 /* User.swift */; };
@@ -43,6 +44,7 @@
 		C0E421311C6524030099B19A /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
 		C0E421321C6524030099B19A /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
 		C0E421351C6524210099B19A /* Tool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
+		C0E662D21C6C414100B03D2C /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		C0E6A94B1C617AA2002D4AA8 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		C0E6A94D1C617B87002D4AA8 /* TwtitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwtitterClient.swift; sourceTree = "<group>"; };
 		C0E6A9501C617FFD002D4AA8 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				C02CA7BC1C61637B00BB0782 /* ViewController.swift */,
 				C0E421351C6524210099B19A /* Tool.swift */,
 				C02CA7BE1C61637B00BB0782 /* Main.storyboard */,
+				C0E662D21C6C414100B03D2C /* UserViewController.swift */,
 				C08F67941C6BC9200083AD7D /* DetailViewController.swift */,
 				C0E6A95E1C619CAE002D4AA8 /* UserTimelineViewController.swift */,
 				C02CA7C11C61637B00BB0782 /* Assets.xcassets */,
@@ -286,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C08F67951C6BC9200083AD7D /* DetailViewController.swift in Sources */,
+				C0E662D31C6C414100B03D2C /* UserViewController.swift in Sources */,
 				C02CA7BD1C61637B00BB0782 /* ViewController.swift in Sources */,
 				C0E6A94E1C617B87002D4AA8 /* TwtitterClient.swift in Sources */,
 				C02CA7BB1C61637B00BB0782 /* AppDelegate.swift in Sources */,
