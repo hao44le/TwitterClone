@@ -22,7 +22,7 @@ class ViewController: UIViewController {
         }
     }
     
-    var logInButton : TWTRLogInButton!
+    var logInButton : UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,8 +37,9 @@ class ViewController: UIViewController {
 
     func addLoginButton(){
         
-        logInButton = TWTRLogInButton()
+        logInButton = UIButton(frame: CGRectMake(15,15,100,200))
         logInButton.addTarget(self, action: "login", forControlEvents: UIControlEvents.TouchUpInside)
+        logInButton.setTitle("Login", forState: UIControlState.Normal)
         logInButton.center = self.view.center
         self.view.addSubview(logInButton)
 

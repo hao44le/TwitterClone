@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import TwitterKit
 
 class SettingTableViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
 
@@ -21,7 +22,9 @@ class SettingTableViewController: UIViewController,UITableViewDataSource,UITable
     func login(){
         TwitterClient.sharedInstance.loginWithCompletion { (user, error) -> Void in
             if user != nil {
-                self.tableView.reloadData()
+//                print(self.users)
+                self.reloadData()
+                NSNotificationCenter.defaultCenter().postNotificationName("userDidSwitchAccount", object: nil)
             }
             if error != nil {
                 Tool.showErrorHUD("Login Failed")
@@ -30,15 +33,33 @@ class SettingTableViewController: UIViewController,UITableViewDataSource,UITable
     }
     @IBOutlet weak var tableView: UITableView!
     
-    var users = []
+    func reloadData(){
+        if let array = NSUserDefaults.standardUserDefaults().objectForKey("userArray") as? [NSData] {
+            self.users.removeAll()
+            for element in array {
+                let unarc = NSKeyedUnarchiver(forReadingWithData: element)
+                unarc.setClass(User.self, forClassName: "User")
+                let user = unarc.decodeObjectForKey("root") as! User
+                self.users.append(user)
+            }
+            self.tableView.reloadData()
+            
+        }
+
+    }
+    var users : [User] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
+        
+                // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    override func viewWillAppear(animated: Bool) {
+        reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,38 +76,70 @@ class SettingTableViewController: UIViewController,UITableViewDataSource,UITable
 
      func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return self.users.count
     }
 
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UserTableViewCell
+        let user = self.users[indexPath.row]
+        if user.profile_image_url_https != nil {
+            cell.userImage!.sd_setImageWithURL(NSURL(string: user.profile_image_url_https!), placeholderImage: UIImage(named: "placeholder.jpg"))
+        } else {
+            cell.userImage?.image = UIImage(named: "placeholder.jpg")
+        }
+        cell.userName.text = user.name
+        cell.userScreenName.text = "@\(user.screen_name!)"
+        
 
         // Configure the cell...
 
         return cell
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        let credential = self.users[indexPath.row].credientail
+        TwitterClient.sharedInstance.requestSerializer.saveAccessToken(credential)
+        Twitter.sharedInstance().sessionStore.saveSessionWithAuthToken(credential!.token, authTokenSecret: credential!.secret, completion: { (session:TWTRAuthSession?, error:NSError?) -> Void in
+            print("save to session store")
+            print("error:\(error)")
+            
+        })
+        NSNotificationCenter.defaultCenter().postNotificationName("userDidSwitchAccount", object: nil)
+        NSUserDefaults.standardUserDefaults().setValue(NSKeyedArchiver.archivedDataWithRootObject(self.users[indexPath.row]), forKey: "userObject")
+        NSUserDefaults.standardUserDefaults().setValue(credential!.userInfo, forKey: "userID")
 
-    /*
+    }
+    
     // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
+        if self.users.count == 1 {
+            return false
+        }
         return true
     }
-    */
 
-    /*
+
+    
     // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            self.users.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+            self.tableView.reloadData()
+            if var array = NSUserDefaults.standardUserDefaults().objectForKey("userArray") as? [NSData] {
+                array.removeAtIndex(indexPath.row)
+                NSUserDefaults.standardUserDefaults().setObject(array, forKey: "userArray")
+                
+                
+            }
+            
+        }  
     }
-    */
+
 
     /*
     // Override to support rearranging the table view.

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class User: NSObject,NSCoding {
+class User: NSObject,NSCoding {
     var name: String?
     var screen_name : String?
     var profile_image_url_https : String?
@@ -20,11 +20,12 @@ public class User: NSObject,NSCoding {
     var friends_count:String?
     var statuses_count:NSNumber?
     var descriptionOfSelf: String?
+    var credientail:BDBOAuth1Credential?
     
     override init() {
         
     }
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         self.name = aDecoder.decodeObjectForKey("name") as? String
         self.screen_name = aDecoder.decodeObjectForKey("screen_name") as? String
         self.profile_image_url_https = aDecoder.decodeObjectForKey("profile_image_url_https") as? String
@@ -36,9 +37,10 @@ public class User: NSObject,NSCoding {
         self.friends_count = aDecoder.decodeObjectForKey("friends_count") as? String
         self.statuses_count = aDecoder.decodeObjectForKey("statuses_count") as? NSNumber
         self.descriptionOfSelf = aDecoder.decodeObjectForKey("descriptionOfSelf") as? String
+        self.credientail = aDecoder.decodeObjectForKey("credientail") as? BDBOAuth1Credential
 //        super.init()
     }
-    public func encodeWithCoder(aCoder: NSCoder) {
+    func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(self.name, forKey: "name")
         aCoder.encodeObject(self.screen_name, forKey: "screen_name")
         aCoder.encodeObject(self.profile_image_url_https, forKey: "profile_image_url_https")
@@ -50,5 +52,8 @@ public class User: NSObject,NSCoding {
         aCoder.encodeObject(self.friends_count, forKey: "friends_count")
         aCoder.encodeObject(self.statuses_count, forKey: "statuses_count")
         aCoder.encodeObject(self.descriptionOfSelf, forKey: "descriptionOfSelf")
+        aCoder.encodeObject(self.credientail, forKey: "credientail")
     }
+    
+    
 }

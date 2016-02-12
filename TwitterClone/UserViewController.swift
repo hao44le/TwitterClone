@@ -19,14 +19,25 @@ class UserViewController: UIViewController,UIScrollViewDelegate,TWTRTweetViewDel
     var tweets: [TWTRTweet] = []
     var isHeaderRefresh = false
     
+    var customView:UIImageView!
+    var userIconImageView:UIImageView!
+    var userName:UILabel!
+    var userscreenName:UILabel!
+    var descriptionLael:UILabel!
+    var locationLabel:UILabel!
+    var followersLabel:UILabel!
+    var followingLabel:UILabel!
+    var tweetsLabel:UILabel!
+    
     
     var source = ""
     var user:User!
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidSwitchAccount", name: "userDidSwitchAccount", object: nil)
         if source == "UserTimelineViewController" {
             configureUI()
-
+            
         } else {
             if let data = NSUserDefaults.standardUserDefaults().objectForKey("userObject") as? NSData {
                 
@@ -34,50 +45,82 @@ class UserViewController: UIViewController,UIScrollViewDelegate,TWTRTweetViewDel
                 unarc.setClass(User.self, forClassName: "User")
                 user = unarc.decodeObjectForKey("root") as! User
                 configureUI()
-
+                
             }
             
         }
         addLongPress()
+
         // Do any additional setup after loading the view.
     }
-    func configureUI(){
+    func userDidSwitchAccount(){
+        let data = NSUserDefaults.standardUserDefaults().objectForKey("userObject") as! NSData
+            
+            let unarc = NSKeyedUnarchiver(forReadingWithData: data)
+            unarc.setClass(User.self, forClassName: "User")
+            user = unarc.decodeObjectForKey("root") as! User
+            reloadUI()
+            
         
+        
+    }
+    func reloadUI(){
+        if user.profile_background_image_url != nil {
+            customView.sd_setImageWithURL(NSURL(string: user.profile_background_image_url!) , placeholderImage: UIImage(named: "placeholder.jpg"))
+            
+        }
+        userIconImageView.sd_setImageWithURL(NSURL(string: user.profile_image_url_https!), placeholderImage: UIImage(named: "placeholder.jpg"))
+        userName.text = user.name
+        userscreenName.text = "@\(user.screen_name!)"
+        descriptionLael.text = user.descriptionOfSelf
+        locationLabel.text = "Location: \(user.location!)"
+        followersLabel.text = "\(user.followers_count!) FOLLOWERS"
+        followingLabel.text = "\(user.friends_count!) FOLLWING"
+        tweetsLabel.text = "#tweets: \(user.statuses_count!)"
+        refreshData(nil)
+    }
+    
+    func configureUI(){
+
         scrollView.delegate = self
 //            print(user)
             scrollView.contentSize = CGSize(width: scrollView.frame.width, height: infoView.frame.origin.y + infoView.frame.height)
 //            scrollView.setContentOffset(CGPoint(x: 0, y: -200), animated: true)
-            let customView = UIImageView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 200))
+            customView = UIImageView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 200))
             customView.contentMode = UIViewContentMode.ScaleAspectFill
+        if user.profile_background_image_url != nil {
             customView.sd_setImageWithURL(NSURL(string: user.profile_background_image_url!) , placeholderImage: UIImage(named: "placeholder.jpg"))
-            scrollView.addParallaxWithView(customView, andHeight: 200, andShadow: true)
+
+        }
+        
+        scrollView.addParallaxWithView(customView, andHeight: 200, andShadow: true)
             
-            let userIconImageView = UIImageView(frame: CGRectMake(15,-20,80,80))
+            userIconImageView = UIImageView(frame: CGRectMake(15,-20,80,80))
             userIconImageView.sd_setImageWithURL(NSURL(string: user.profile_image_url_https!), placeholderImage: UIImage(named: "placeholder.jpg"))
             userIconImageView.layer.borderColor = UIColor.whiteColor().CGColor
             userIconImageView.layer.borderWidth = 4
             scrollView.addSubview(userIconImageView)
             
-            let userName = UILabel(frame: CGRectMake(UIScreen.mainScreen().bounds.width - 220,0,200,30))
+            userName = UILabel(frame: CGRectMake(UIScreen.mainScreen().bounds.width - 220,0,200,30))
             userName.textAlignment = NSTextAlignment.Right
             userName.text = user.name
             userName.font = UIFont.boldSystemFontOfSize(20)
             scrollView.addSubview(userName)
             
-            let userscreenName = UILabel(frame: CGRectMake(UIScreen.mainScreen().bounds.width - 220,40,200,30))
+            userscreenName = UILabel(frame: CGRectMake(UIScreen.mainScreen().bounds.width - 220,40,200,30))
             userscreenName.textAlignment = NSTextAlignment.Right
             userscreenName.text = "@\(user.screen_name!)"
             userscreenName.textColor = UIColor.grayColor()
             userscreenName.font = UIFont.systemFontOfSize(18)
             scrollView.addSubview(userscreenName)
 
-            let description = UILabel(frame: CGRectMake(15,85,UIScreen.mainScreen().bounds.width - 30,50))
-            description.text = user.descriptionOfSelf
-            description.font = UIFont.systemFontOfSize(19)
-            description.numberOfLines = 0
-            scrollView.addSubview(description)
+            descriptionLael = UILabel(frame: CGRectMake(15,85,UIScreen.mainScreen().bounds.width - 30,50))
+            descriptionLael.text = user.descriptionOfSelf
+            descriptionLael.font = UIFont.systemFontOfSize(19)
+            descriptionLael.numberOfLines = 0
+            scrollView.addSubview(descriptionLael)
             
-            let locationLabel = UILabel(frame: CGRectMake(15,145,UIScreen.mainScreen().bounds.width - 30,30))
+            locationLabel = UILabel(frame: CGRectMake(15,145,UIScreen.mainScreen().bounds.width - 30,30))
             locationLabel.text = "Location: \(user.location!)"
             locationLabel.textAlignment = NSTextAlignment.Center
             locationLabel.textColor = UIColor.grayColor()
@@ -85,21 +128,21 @@ class UserViewController: UIViewController,UIScrollViewDelegate,TWTRTweetViewDel
             
             let labelWidth = (UIScreen.mainScreen().bounds.width - 40) / 2
             
-            let followersLabel = UILabel(frame: CGRectMake(15,185,labelWidth,30))
+            followersLabel = UILabel(frame: CGRectMake(15,185,labelWidth,30))
             followersLabel.text = "\(user.followers_count!) FOLLOWERS"
             followersLabel.font = UIFont.systemFontOfSize(15)
             followersLabel.textColor = UIColor.grayColor()
             followersLabel.textAlignment = NSTextAlignment.Center
             scrollView.addSubview(followersLabel)
             
-            let followingLabel = UILabel(frame: CGRectMake(UIScreen.mainScreen().bounds.width - 25 - labelWidth,185,labelWidth,30))
+            followingLabel = UILabel(frame: CGRectMake(UIScreen.mainScreen().bounds.width - 25 - labelWidth,185,labelWidth,30))
             followingLabel.text = "\(user.friends_count!) FOLLWING"
             followingLabel.font = UIFont.systemFontOfSize(15)
             followingLabel.textAlignment = NSTextAlignment.Center
             followingLabel.textColor = UIColor.grayColor()
             scrollView.addSubview(followingLabel)
             
-        let tweetsLabel = UILabel(frame: CGRectMake(15,225,UIScreen.mainScreen().bounds.width - 30,30))
+        tweetsLabel = UILabel(frame: CGRectMake(15,225,UIScreen.mainScreen().bounds.width - 30,30))
         tweetsLabel.text = "#tweets: \(user.statuses_count!)"
         tweetsLabel.textAlignment = NSTextAlignment.Center
         tweetsLabel.textColor = UIColor.grayColor()
@@ -124,7 +167,10 @@ class UserViewController: UIViewController,UIScrollViewDelegate,TWTRTweetViewDel
         self.tabBarController?.tabBar.addGestureRecognizer(press)
     }
     func longpressed(){
-        self.performSegueWithIdentifier("toSetting", sender: self)
+        UIView.animateWithDuration(0.5) { () -> Void in
+            self.performSegueWithIdentifier("toSetting", sender: self)
+        }
+        
     }
     
     func refreshData(max_id:String?){

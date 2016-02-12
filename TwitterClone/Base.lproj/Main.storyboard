@@ -130,20 +130,20 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gSd-iO-wL5">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
+                                        <rect key="frame" x="0.0" y="64" width="600" height="2"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="90" id="HN0-n6-pzu"/>
+                                            <constraint firstAttribute="height" constant="2" id="K1h-Ng-bKt"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="gSd-iO-wL5" firstAttribute="leading" secondItem="PIt-73-675" secondAttribute="leading" id="Fyf-mX-Ecn"/>
-                                    <constraint firstItem="gSd-iO-wL5" firstAttribute="top" secondItem="PIt-73-675" secondAttribute="top" id="R61-1t-Qty"/>
-                                    <constraint firstAttribute="trailing" secondItem="gSd-iO-wL5" secondAttribute="trailing" id="ZbB-oV-lOV"/>
+                                    <constraint firstAttribute="trailing" secondItem="gSd-iO-wL5" secondAttribute="trailing" id="531-3X-YUv"/>
+                                    <constraint firstAttribute="bottom" secondItem="gSd-iO-wL5" secondAttribute="bottom" constant="485" id="ZXY-HY-Opa"/>
+                                    <constraint firstItem="gSd-iO-wL5" firstAttribute="centerX" secondItem="PIt-73-675" secondAttribute="centerX" id="cZZ-A8-H9B"/>
                                     <constraint firstAttribute="bottom" secondItem="gSd-iO-wL5" secondAttribute="bottom" constant="224" id="fyW-JV-ggY"/>
-                                    <constraint firstItem="gSd-iO-wL5" firstAttribute="centerX" secondItem="PIt-73-675" secondAttribute="centerX" id="gw9-P7-BtT"/>
-                                    <constraint firstAttribute="bottom" secondItem="gSd-iO-wL5" secondAttribute="bottom" constant="461" id="zUD-TF-AMy"/>
+                                    <constraint firstItem="gSd-iO-wL5" firstAttribute="leading" secondItem="PIt-73-675" secondAttribute="leading" id="hgn-FT-gYY"/>
+                                    <constraint firstItem="gSd-iO-wL5" firstAttribute="top" secondItem="PIt-73-675" secondAttribute="top" constant="64" id="wGj-6a-UKi"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -154,11 +154,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="PIt-73-675" firstAttribute="top" secondItem="ZVc-8y-mqL" secondAttribute="top" id="5nx-vE-BtN"/>
-                            <constraint firstItem="PIt-73-675" firstAttribute="leading" secondItem="ZVc-8y-mqL" secondAttribute="leading" id="D7R-bK-fvN"/>
-                            <constraint firstItem="PIt-73-675" firstAttribute="bottom" secondItem="GRX-aL-uUC" secondAttribute="top" id="GCx-I0-eYb"/>
-                            <constraint firstAttribute="trailing" secondItem="PIt-73-675" secondAttribute="trailing" id="RJA-I3-lRm"/>
+                            <constraint firstItem="PIt-73-675" firstAttribute="top" secondItem="ZVc-8y-mqL" secondAttribute="top" id="7Tp-pE-flz"/>
+                            <constraint firstItem="PIt-73-675" firstAttribute="leading" secondItem="ZVc-8y-mqL" secondAttribute="leading" id="H9Y-TU-6tW"/>
                             <constraint firstItem="PIt-73-675" firstAttribute="top" secondItem="zRc-MA-smW" secondAttribute="bottom" constant="-64" id="XCg-g6-7sb"/>
+                            <constraint firstItem="PIt-73-675" firstAttribute="bottom" secondItem="GRX-aL-uUC" secondAttribute="top" id="c6m-UD-h13"/>
+                            <constraint firstAttribute="trailing" secondItem="PIt-73-675" secondAttribute="trailing" id="u0w-3J-a0k"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -181,7 +181,7 @@
         <!--Setting Table View Controller-->
         <scene sceneID="7GW-0i-40e">
             <objects>
-                <viewController id="B7z-pM-lfU" customClass="SettingTableViewController" customModule="TwitterClone" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="B7z-pM-lfU" customClass="SettingTableViewController" customModule="TwitterClone" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1xz-MN-s5v"/>
                         <viewControllerLayoutGuide type="bottom" id="5ag-0g-6v5"/>
@@ -193,6 +193,38 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="b3B-EP-Ta7">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="krI-Xf-Cpf" customClass="UserTableViewCell" customModule="TwitterClone" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="krI-Xf-Cpf" id="IBz-RG-q9l">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vdg-cu-cAQ">
+                                                    <rect key="frame" x="13" y="0.0" width="40" height="40"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Grey Chen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xL4-EO-ALP">
+                                                    <rect key="frame" x="61" y="0.0" width="153" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@hao44le" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zny-jX-DLz">
+                                                    <rect key="frame" x="61" y="22" width="153" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="userImage" destination="Vdg-cu-cAQ" id="ItQ-Jx-05Y"/>
+                                            <outlet property="userName" destination="xL4-EO-ALP" id="yY5-7Y-2Uu"/>
+                                            <outlet property="userScreenName" destination="zny-jX-DLz" id="Jf7-z0-W3w"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="B7z-pM-lfU" id="uXg-l4-qPp"/>
                                     <outlet property="delegate" destination="B7z-pM-lfU" id="ebZ-ob-zZH"/>
@@ -208,7 +240,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="QnS-fl-Xcm">
-                        <barButtonItem key="leftBarButtonItem" title="Add" id="DGe-BB-Bw4">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="DGe-BB-Bw4">
                             <connections>
                                 <action selector="addClicked:" destination="B7z-pM-lfU" id="pBL-wr-2Ul"/>
                             </connections>

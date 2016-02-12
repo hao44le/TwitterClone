@@ -20,6 +20,7 @@ class TweetTableViewDemoViewController: UITableViewController, TWTRTweetViewDele
     
     override func viewDidLoad() {
         // Setup the table view
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidSwitchAccount", name: "userDidSwitchAccount", object: nil)
         TWTRTweetView.appearance().theme = TWTRTweetViewTheme.Light
 //        self.navigationItem.title = "Home"
         tableView.estimatedRowHeight = 200
@@ -34,6 +35,10 @@ class TweetTableViewDemoViewController: UITableViewController, TWTRTweetViewDele
         addButtons()
         
     }
+    func userDidSwitchAccount(){
+        refreshData(nil)
+    }
+    
     
     func addButtons(){
         let logoutButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logoutpressed")
@@ -74,6 +79,12 @@ class TweetTableViewDemoViewController: UITableViewController, TWTRTweetViewDele
     func logoutpressed(){
         
         TwitterClient.sharedInstance.deauthorize()
+        if var array = NSUserDefaults.standardUserDefaults().objectForKey("userArray") as? [NSData] {
+            
+                array.removeLast()
+            NSUserDefaults.standardUserDefaults().setObject(array, forKey: "userArray")
+            
+        }
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -152,10 +163,6 @@ class TweetTableViewDemoViewController: UITableViewController, TWTRTweetViewDele
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let tweet = tweets[indexPath.row]
         return TWTRTweetTableViewCell.heightForTweet(tweet, width: CGRectGetWidth(self.view.bounds), showingActions: true)
-    }
-    func tweetView(tweetView: TWTRTweetView, didTapImage image: UIImage, withURL imageURL: NSURL) {
-        print("user tap on image")
-        
     }
     func tweetView(tweetView: TWTRTweetView, didTapProfileImageForUser user: TWTRUser) {
         print("didTapProfileImageForUser")

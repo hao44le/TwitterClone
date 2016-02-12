@@ -42,6 +42,10 @@ class TwitterClient: BDBOAuth1SessionManager {
             print("sucess get the token")
             let authURL = NSURL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(token.token)")
             UIApplication.sharedApplication().openURL(authURL!)
+//            let webView = UIWebView()
+//            webView.loadRequest(NSURLRequest(URL: authURL!))
+            
+//            webView.loadRequest(NSURLRequest(URL: authURL!))
             }) { (error:NSError!) -> Void in
                 print(error)
                 self.loginCompletion?(user: nil, error: error)
@@ -54,6 +58,7 @@ class TwitterClient: BDBOAuth1SessionManager {
             print("Got access token\(credential.userInfo)")
             let id = credential.userInfo["user_id"] as! String
             NSUserDefaults.standardUserDefaults().setValue(id, forKey: "userID")
+            
             TwitterClient.sharedInstance.requestSerializer.saveAccessToken(credential)
             Twitter.sharedInstance().sessionStore.saveSessionWithAuthToken(credential.token, authTokenSecret: credential.secret, completion: { (session:TWTRAuthSession?, error:NSError?) -> Void in
                 print("save to session store")
@@ -65,11 +70,24 @@ class TwitterClient: BDBOAuth1SessionManager {
                     let description = response!["description"] as! String
                     let user = User.mj_objectWithKeyValues(response)
                     user.descriptionOfSelf = description
+                    user.credientail = credential
 //                    print(user)
+               let data =  NSKeyedArchiver.archivedDataWithRootObject(user)
+                if var userArray = NSUserDefaults.standardUserDefaults().objectForKey("userArray") as? [NSData] {
+                    if !userArray.contains(data) {
+                        userArray.append(data)
+//                        print(userArray.count)
+                        NSUserDefaults.standardUserDefaults().setObject(userArray, forKey: "userArray")
+                    }
+                    
+                } else {
+                    let array : [NSData]  = [data]
+                    NSUserDefaults.standardUserDefaults().setObject(array, forKey: "userArray")
+                }
                     NSUserDefaults.standardUserDefaults().setValue(NSKeyedArchiver.archivedDataWithRootObject(user), forKey: "userObject")
                     self.loginCompletion?(user: user, error: nil)
                 }, failure: { (task:NSURLSessionDataTask?, error:NSError) -> Void in
-                    print("failed to get current user")
+                    print("failed to get current user\(error)")
                     self.loginCompletion?(user: nil, error: error)
             })
 //            let user = User()
