@@ -79,6 +79,8 @@ class TweetTableViewDemoViewController: UITableViewController, TWTRTweetViewDele
     func logoutpressed(){
         
         TwitterClient.sharedInstance.deauthorize()
+        let id = NSUserDefaults.standardUserDefaults().valueForKey("userID") as! String
+        Twitter.sharedInstance().sessionStore.logOutUserID(id)
         if var array = NSUserDefaults.standardUserDefaults().objectForKey("userArray") as? [NSData] {
             
                 array.removeLast()
@@ -129,14 +131,17 @@ class TweetTableViewDemoViewController: UITableViewController, TWTRTweetViewDele
                 self.tweets = tweets_array!
                 self.max_id = (tweets_array!.last?.tweetID)!
             } else {
-                if tweets_array?.count != 0 {
+                
+                if tweets_array != nil && tweets_array?.count != 0 {
                     tweets_array!.removeFirst()
                     self.max_id = (tweets_array!.last?.tweetID)!
+                    
+                    for item in tweets_array! {
+                        self.tweets.append(item)
+                    }
+
                 }
                 
-                for item in tweets_array! {
-                    self.tweets.append(item)
-                }
                 
                 
             }

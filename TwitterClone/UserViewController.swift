@@ -61,7 +61,7 @@ class UserViewController: UIViewController,UIScrollViewDelegate,TWTRTweetViewDel
             user = unarc.decodeObjectForKey("root") as! User
             reloadUI()
             
-        
+        addLongPress()
         
     }
     func reloadUI(){

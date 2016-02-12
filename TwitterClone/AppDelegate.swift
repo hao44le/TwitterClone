@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         IQKeyboardManager.sharedManager().enable = true
         IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
-        Twitter.sharedInstance().startWithConsumerKey(keyA, consumerSecret: secretA)
+        Twitter.sharedInstance().startWithConsumerKey(keyB, consumerSecret: secretB)
         UITabBar.appearance().barTintColor = Tool.twitterColor
         UITabBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().barTintColor = Tool.twitterColor

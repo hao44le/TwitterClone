@@ -98,8 +98,13 @@ class SettingTableViewController: UIViewController,UITableViewDataSource,UITable
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        let credential = self.users[indexPath.row].credientail
+        let user = self.users[indexPath.row]
+        print(user.screen_name)
+        let credential = user.credientail
+        print(credential!.token)
+        TwitterClient.sharedInstance.deauthorize()
         TwitterClient.sharedInstance.requestSerializer.saveAccessToken(credential)
         Twitter.sharedInstance().sessionStore.saveSessionWithAuthToken(credential!.token, authTokenSecret: credential!.secret, completion: { (session:TWTRAuthSession?, error:NSError?) -> Void in
             print("save to session store")
@@ -107,9 +112,8 @@ class SettingTableViewController: UIViewController,UITableViewDataSource,UITable
             
         })
         NSNotificationCenter.defaultCenter().postNotificationName("userDidSwitchAccount", object: nil)
-        NSUserDefaults.standardUserDefaults().setValue(NSKeyedArchiver.archivedDataWithRootObject(self.users[indexPath.row]), forKey: "userObject")
+        NSUserDefaults.standardUserDefaults().setValue(NSKeyedArchiver.archivedDataWithRootObject(user), forKey: "userObject")
         NSUserDefaults.standardUserDefaults().setValue(credential!.userInfo, forKey: "userID")
-
     }
     
     // Override to support conditional editing of the table view.
@@ -128,8 +132,12 @@ class SettingTableViewController: UIViewController,UITableViewDataSource,UITable
         if editingStyle == .Delete {
             // Delete the row from the data source
             self.users.removeAtIndex(indexPath.row)
+//            let id = NSUserDefaults.standardUserDefaults().valueForKey("userID") as! String
+//            Twitter.sharedInstance().sessionStore.logOutUserID(id)
+//            TwitterClient.sharedInstance.deauthorize()
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
             self.tableView.reloadData()
+            
             if var array = NSUserDefaults.standardUserDefaults().objectForKey("userArray") as? [NSData] {
                 array.removeAtIndex(indexPath.row)
                 NSUserDefaults.standardUserDefaults().setObject(array, forKey: "userArray")

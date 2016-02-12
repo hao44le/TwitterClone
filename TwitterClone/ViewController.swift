@@ -37,8 +37,9 @@ class ViewController: UIViewController {
 
     func addLoginButton(){
         
-        logInButton = UIButton(frame: CGRectMake(15,15,100,200))
+        logInButton = TWTRLogInButton()
         logInButton.addTarget(self, action: "login", forControlEvents: UIControlEvents.TouchUpInside)
+//        logInButton.setImage(UIImage(named: "login"), forState: UIControlState.Normal)
         logInButton.setTitle("Login", forState: UIControlState.Normal)
         logInButton.center = self.view.center
         self.view.addSubview(logInButton)

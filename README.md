@@ -67,7 +67,7 @@ Describe any challenges encountered while building the app.
 
 # Project 5 - *TwitterClone*
 
-Time spent: **X** hours spent in total
+Time spent: **15** hours spent in total
 
 ## User Stories
 
@@ -90,13 +90,12 @@ The following **optional** features are implemented:
 - [x] Pulling down the profile page should blur and resize the header image.
 - [x] Account switching
 - [x] Long press on tab bar to bring up Account view with animation
-- [ ] Tap account to switch to
+- [x] Tap account to switch to
 - [x] Include a plus button to Add an Account
-- [ ] Swipe to delete an account
+- [x] Swipe to delete an account
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
@@ -107,7 +106,8 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src= 'Twitter2.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src= 'Twitter1.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
@@ -117,7 +117,7 @@ Describe any challenges encountered while building the app.
 
 ## License
 
-Copyright [yyyy] [name of copyright owner]
+Copyright [2016] [Gelei]
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
